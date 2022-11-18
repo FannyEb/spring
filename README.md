@@ -1,24 +1,27 @@
----
-title: Kotlin Spring
-description: A basic Kotlin Kotlin Spring server
-tags:
-  - spring
-  - kotlin
----
+## Requirements
 
-# Ktor Example
+- [Java >= 17](https://www.oracle.com/java/technologies/downloads/#java17) (JRE for running or JDK for developing and running)
+- [Maven >= 3.8.1](https://maven.apache.org/download.cgi)
 
-This example starts a basic [Kotlin Spring Boot](https://spring.io/projects/spring-boot) web server.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/w502ro)
+## Running the application locally
 
-## ✨ Features
+There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `net.eicnam.fip1.ptt.backend.BackendApplication` class from your IDE.
 
-- Spring
-- Kotlin
+Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
 
-## 💁‍♀️ How to use
+```shell
+mvn spring-boot:run
+```
 
-- Click the Railway button to deploy the app
-- Clone the project and connect to it using `railway link`
-- Run your Kotlin Spring app locally using `railway ./gradlew run`
+
+## Authors
+
+- Group PTT, EI CNAM Strasbourg, First Year
+
+
+##  License
+
+[Apache License 2.0](LICENSE) © [EI CNAM STRASBOURG](https://lecnam.net/)
+
+Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
