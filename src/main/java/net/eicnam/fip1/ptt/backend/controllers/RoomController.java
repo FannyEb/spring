@@ -2,10 +2,7 @@ package net.eicnam.fip1.ptt.backend.controllers;
 
 import java.util.Collection;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +23,19 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping(value = "/rooms", produces = JSON)
-    public Collection<Room> getAll() {
-        LOGGER.info("Request incoming: retrieve all Rooms");
-        return roomService.getAll();
+    public Collection<Room> getAll(@RequestHeader String Authorization) {
+        LOGGER.info("Request incoming: retrieve all Rooms by user");
+
+        final String[] token = Authorization.split(" ");
+
+        if (token.length != 2) {
+            return null;
+        }
+        if (!token[0].equals("Bearer")) {
+            return null;
+        }
+
+        return roomService.getAllByUser(token[1]);
     }
 
     @GetMapping(value = "/room/{id}", produces = JSON)

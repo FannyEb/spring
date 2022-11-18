@@ -28,4 +28,7 @@ public class Room {
 
     @JsonProperty("lastActivityDate")
     private String lastActivityDate;
+
+    @JsonProperty("isAlertNotificationEnabled")
+    private String isAlertNotificationEnabled;
 }

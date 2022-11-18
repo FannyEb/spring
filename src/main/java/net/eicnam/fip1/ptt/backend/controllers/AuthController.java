@@ -27,6 +27,8 @@ public class AuthController {
     public String postLogin(@RequestBody LoginBody loginBody) {
         LOGGER.info("Request incoming: login");
 
-        return authService.login(loginBody.getEmail(), loginBody.getPassword());
+        final String token = authService.login(loginBody.getEmail(), loginBody.getPassword());
+
+        return "{\"token\": \"" + token + "\"}";
     }
 }

@@ -2,7 +2,8 @@ package net.eicnam.fip1.ptt.backend.services;
 
 import java.util.Collection;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import net.eicnam.fip1.ptt.backend.models.RUser;
+import net.eicnam.fip1.ptt.backend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import org.slf4j.Logger;
@@ -24,14 +25,17 @@ public class RoomService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoomService.class);
 
     private final RoomRepository roomRepository;
+    private final UserRepository userRepository;
 
-    public Collection<Room> getAll() {
+    public Collection<Room> getAllByUser(final String token) {
         final Bubbles bubbles = new Bubbles();
 
         final ObjectMapper objectMapper = new ObjectMapper();
         Collection<Room> rooms = null;
         try {
-            final String jsonRooms = objectMapper.readTree(bubbles.getAllBubbles()).get("data").toString();
+            final RUser rUser = userRepository.findById(token).orElseThrow();
+
+            final String jsonRooms = objectMapper.readTree(bubbles.getAllUserBubbles(rUser.getId())).get("data").toString();
             rooms = objectMapper.readValue(jsonRooms, new TypeReference<>() {});
             roomRepository.saveAll(rooms);
         } catch (final JsonProcessingException e) {
@@ -43,5 +47,4 @@ public class RoomService {
     public Room getById(final String id) {
         return roomRepository.findById(id).orElse(null);
     }
-
 }

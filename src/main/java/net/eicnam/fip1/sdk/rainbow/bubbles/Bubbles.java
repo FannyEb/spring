@@ -23,8 +23,10 @@ public class Bubbles {
         this.header =  new HttpHeader().addHeader("Authorization", String.format("Bearer %s", rainbow.getToken()));
     }
 
-    public String getAllBubbles() {
-        final HttpParams params = new HttpParams().addParam("limit", "1000");
+    public String getAllUserBubbles(final String userId) {
+        final HttpParams params = new HttpParams()
+                .addParam("limit", "1000")
+                .addParam("userId", userId);
         final HttpRequest request = new HttpRequest(baseUrl + Endpoint.ENDUSER_ROOMS, HttpMethod.GET, header, params);
 
         return request.connect()
