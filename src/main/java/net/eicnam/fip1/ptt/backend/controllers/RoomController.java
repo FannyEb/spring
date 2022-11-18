@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 
 import net.eicnam.fip1.ptt.backend.services.RoomService;
 import net.eicnam.fip1.ptt.backend.models.Room;
+
 import static net.eicnam.fip1.ptt.backend.utils.Namespace.JSON;
 
 @AllArgsConstructor
