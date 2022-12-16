@@ -1,6 +1,7 @@
 package net.eicnam.fip1.sdk.rainbow.bubbles;
 
 import net.eicnam.fip1.ptt.backend.utils.DotEnvReader;
+import net.eicnam.fip1.ptt.backend.utils.JWTDecode;
 import net.eicnam.fip1.sdk.rainbow.RainbowApplication;
 import net.eicnam.fip1.sdk.rainbow.utils.Endpoint;
 import net.eicnam.fip1.sdk.rainbow.utils.http.HttpHeader;
@@ -18,15 +19,21 @@ public class Bubbles {
     private final String baseUrl = envReader.getValue("API_URL");
 
     private final HttpHeader header;
+    private final String userId;
 
     public Bubbles() {
-        this.header =  new HttpHeader().addHeader("Authorization", String.format("Bearer %s", rainbow.getToken()));
+        final String token = rainbow.getToken();
+
+        this.userId = JWTDecode.getId(token);
+        this.header = new HttpHeader().addHeader("Authorization", String.format("Bearer %s", token));
     }
 
-    public String getAllUserBubbles(final String userId) {
+    public String getAll() {
         final HttpParams params = new HttpParams()
                 .addParam("limit", "1000")
-                .addParam("userId", userId);
+                .addParam("userId", this.userId)
+                .addParam("format", "full");
+
         final HttpRequest request = new HttpRequest(baseUrl + Endpoint.ENDUSER_ROOMS, HttpMethod.GET, header, params);
 
         return request.connect()

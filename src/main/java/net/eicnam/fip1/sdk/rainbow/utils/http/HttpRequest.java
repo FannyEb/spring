@@ -28,8 +28,9 @@ public class HttpRequest {
 
     public HttpRequest(final String url, final HttpMethod method, final HttpHeader header, final HttpParams params) {
         try {
-            LOGGER.info(url);
+
             this.url = params.getParamsString() == null ? new URL(url) : new URL(url + "?" + params.getParamsString());
+            LOGGER.info(this.url.toString());
         } catch (final MalformedURLException e) {
             LOGGER.error("HttpRequest() > Malformed URL Exception: {}", e.getMessage());
             this.url = null;
@@ -40,7 +41,7 @@ public class HttpRequest {
 
     public HttpRequest connect() {
         try {
-            this.con = (HttpURLConnection) url.openConnection();
+            this.con = (HttpURLConnection) this.url.openConnection();
             con.setRequestMethod(method.toString());
         } catch (final IOException e) {
             LOGGER.error("connect() > Error while connecting to the server");

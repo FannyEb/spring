@@ -2,6 +2,7 @@ package net.eicnam.fip1.ptt.backend.controllers;
 
 import java.util.Collection;
 
+import net.eicnam.fip1.ptt.backend.response.RoomsResponse;
 import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping(value = "/rooms", produces = JSON)
-    public Collection<Room> getAll(@RequestHeader String Authorization) {
+    public Collection<RoomsResponse> getAll(@RequestHeader String Authorization) {
         LOGGER.info("Request incoming: retrieve all Rooms by user");
 
         final String[] token = Authorization.split(" ");
@@ -43,5 +44,4 @@ public class RoomController {
         LOGGER.info("Request incoming: retrieve Room with id {}", id);
         return roomService.getById(id);
     }
-
 }

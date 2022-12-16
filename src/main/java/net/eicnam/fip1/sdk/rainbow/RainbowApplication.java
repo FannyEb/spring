@@ -27,7 +27,7 @@ public class RainbowApplication {
 
         this.token = rainbowAuthentication.getToken();
 
-        LOGGER.info("Rainbow SDK application started");
+        LOGGER.info("Rainbow SDK application started w/ token: {}", this.token);
     }
 
     public static RainbowApplication getInstance() {
