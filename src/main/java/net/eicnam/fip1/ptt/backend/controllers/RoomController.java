@@ -39,9 +39,18 @@ public class RoomController {
         return roomService.getAllByUser(token[1]);
     }
 
-    @GetMapping(value = "/room/{id}", produces = JSON)
+    @GetMapping(value = "/rooms/{id}", produces = JSON)
     public Room getById(@PathVariable final String id) {
         LOGGER.info("Request incoming: retrieve Room with id {}", id);
         return roomService.getById(id);
+    }
+
+    @GetMapping(value = "/rooms/{id}/conference", produces = JSON)
+    public String getConferenceId(@PathVariable final String id) {
+        LOGGER.info("Request incoming: get conferenceId for room {}", id);
+
+        final String conferenceId = roomService.getConferenceId(id);
+        // return json formatted response
+        return "{\"conferenceId\": \"" + conferenceId + "\"}";
     }
 }

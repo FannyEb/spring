@@ -10,9 +10,6 @@ import net.eicnam.fip1.sdk.rainbow.utils.http.HttpParams;
 import net.eicnam.fip1.sdk.rainbow.utils.http.HttpRequest;
 
 public class Bubbles {
-
-    private static final RainbowApplication rainbow = RainbowApplication.getInstance();
-
     private final RainbowApplication rainbowApplication = RainbowApplication.getInstance();
     private final DotEnvReader envReader = rainbowApplication.getEnvReader();
 
@@ -22,7 +19,7 @@ public class Bubbles {
     private final String userId;
 
     public Bubbles() {
-        final String token = rainbow.getToken();
+        final String token = rainbowApplication.getToken();
 
         this.userId = JWTDecode.getId(token);
         this.header = new HttpHeader().addHeader("Authorization", String.format("Bearer %s", token));
@@ -35,6 +32,19 @@ public class Bubbles {
                 .addParam("format", "full");
 
         final HttpRequest request = new HttpRequest(baseUrl + Endpoint.ENDUSER_ROOMS, HttpMethod.GET, header, params);
+
+        return request.connect()
+                .send()
+                .disconnect()
+                .getResponse();
+    }
+
+    public String getById(final String id) {
+        final HttpParams params = new HttpParams()
+                .addParam("format", "full");
+
+        final String url = String.format(String.format("%s%s", baseUrl, Endpoint.ENDUSER_ROOMS_ID), id);
+        final HttpRequest request = new HttpRequest(url, HttpMethod.GET, header, params);
 
         return request.connect()
                 .send()

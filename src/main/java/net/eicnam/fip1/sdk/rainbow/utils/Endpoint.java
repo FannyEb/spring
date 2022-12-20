@@ -3,7 +3,9 @@ package net.eicnam.fip1.sdk.rainbow.utils;
 public enum Endpoint
 {
     AUTH_LOGIN("/authentication/v1.0/login"),
-    ENDUSER_ROOMS("/enduser/v1.0/rooms");
+    ENDUSER_ROOMS("/enduser/v1.0/rooms"),
+    ENDUSER_ROOMS_ID("/enduser/v1.0/rooms/%s"),
+    CONFERENCE_ROOMS_ID_START("/conference/v1.0/rooms/%s/start");
 
     private final String endpoint;
 
