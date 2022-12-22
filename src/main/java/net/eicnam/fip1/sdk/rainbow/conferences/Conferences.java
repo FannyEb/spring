@@ -21,16 +21,11 @@ public class Conferences
         this.header = new HttpHeader().addHeader("Authorization", String.format("Bearer %s", token));
     }
 
-<<<<<<< HEAD
     public void startConference(final String roomId) {
-=======
-    public String startConference(final String roomId) {
->>>>>>> 033db29d2cca918880a9ce03919bd07d4ac2839f
         final String url = baseUrl + String.format(Endpoint.CONFERENCE_ROOMS_ID_START.toString(), roomId);
         final HttpRequest request = new HttpRequest(url, HttpMethod.POST, header);
         request.connect()
                 .send()
                 .disconnect();
-
     }
 }
